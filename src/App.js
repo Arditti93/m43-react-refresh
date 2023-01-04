@@ -2,8 +2,9 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 // import MovieCard from './componets/MovieCard'
 import CreateUser from './componets/CreateUser'
+import ReadUsers from './componets/DisplayUsers'
 
-const API_URL = "http://www.omdbapi.com/?i=tt3896198&apikey=7d2e5ef7"
+// const API_URL = "http://www.omdbapi.com/?i=tt3896198&apikey=7d2e5ef7"
 
 const App = () => {
   // const [searchTerm, setSearchTerm] = useState("")
@@ -58,6 +59,8 @@ const App = () => {
 
     <div className='app'>
       <CreateUser />
+      {/* TODO: call read users componet here */}
+      <ReadUsers />
 
     </div>
   )
