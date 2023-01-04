@@ -2,13 +2,16 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 // import MovieCard from './componets/MovieCard'
 import CreateUser from './componets/CreateUser'
-import ReadUsers from './componets/DisplayUsers'
+import ReadUsers from './componets/ReadUsers'
+import Login from './componets/Login'
 
 // const API_URL = "http://www.omdbapi.com/?i=tt3896198&apikey=7d2e5ef7"
 
 const App = () => {
   // const [searchTerm, setSearchTerm] = useState("")
   // const [movies, setMovies] = useState([])
+
+  const [user, setUser] = useState()
 
   // useEffect(()=>{
   //   searchFilms('Batman')
@@ -62,6 +65,12 @@ const App = () => {
       {/* TODO: call read users componet here */}
       <ReadUsers />
 
+      <Login setter={setUser} />
+      {user ?
+        <h2> Hello welcome {user} you have logged in</h2>
+        :
+        <h2>Please login</h2>
+      }
     </div>
   )
 

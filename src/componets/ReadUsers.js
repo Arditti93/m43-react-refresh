@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 
 //TODO import readUsers fetch function here
+import { readUsers } from '../utils'
 
 const ReadUsers = () => {
     const [usernames, setUsernames] = useState()
@@ -12,13 +13,13 @@ const ReadUsers = () => {
 
     const loadUsers = async () => {
         // // TODO: Call readUsers fetch function here
-        // setUsernames()
+        let users = await readUsers()
+        setUsernames(users)
     }
 
     return (
         <div className='container'>
             {usernames?.length > 0
-
                 ?(
                     <div className='usernames'>
                         {usernames.map((user)=>(
