@@ -5,6 +5,10 @@ import CreateUser from './componets/CreateUser'
 import ReadUsers from './componets/ReadUsers'
 import Login from './componets/Login'
 
+import { getCookie } from './common'
+import { authCheck } from './utils'
+
+
 // const API_URL = "http://www.omdbapi.com/?i=tt3896198&apikey=7d2e5ef7"
 
 const App = () => {
@@ -13,9 +17,18 @@ const App = () => {
 
   const [user, setUser] = useState()
 
-  // useEffect(()=>{
-  //   searchFilms('Batman')
-  // }, [])
+  useEffect(()=>{
+    // searchFilms('Batman')
+    let cookie = getCookie('jwt_token')
+    if (cookie !== false) {
+      loginWithToken(cookie)
+    }
+  }, [])
+
+  const loginWithToken = async (cookie) => {
+    const user = await authCheck(cookie)
+    setUser(user)
+  }
 
   // const searchFilms = async (title) => {
   //   const request = await fetch(`${API_URL}&s=${title}`)

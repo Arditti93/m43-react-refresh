@@ -1,3 +1,5 @@
+import { writeCookie } from "../common"
+
 export const createUser = async (username, email, password) => {
     try {
         const response = await fetch("http://localhost:5001/createUser", {
@@ -21,7 +23,7 @@ export const createUser = async (username, email, password) => {
 
 //Finish readUsers below
 //MAKE SURE YOU REMOVE THE TOKEN CHECK MIDDLEWARE FROM THE READUSERS ENDPONT FOR NOW
-export const readUsers = async () =>{
+export const readUsers = async () => {
     try {
         const response = await fetch("http://localhost:5001/readUsers", {
             method: "GET",
@@ -54,6 +56,24 @@ export const loginUser =  async (username, email, password, setter) => {
         const data = await response.json()
         console.log(data)
         setter(data.username)
+        writeCookie("jwt_token", data.token, 7)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const authCheck = async (jwtToken) => {
+    try {
+        const response = await fetch("http://localhost:5001/authCheck", {
+            method: "GET",
+            headers: {
+                "Content-Type" : "application/json",
+                "Authorization" : `Bearer ${jwtToken}`
+            }
+        })
+        const data = await response.json()
+        console.log(data)
+        return data.username
     } catch (error) {
         console.log(error)
     }
