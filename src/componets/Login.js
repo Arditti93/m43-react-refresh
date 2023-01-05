@@ -2,7 +2,7 @@ import React from "react"
 import {useState} from "react"
 import { loginUser } from "../utils"
 
-const Login = ({setter}) => {
+const Login = ({setter, cookie}) => {
     const [username, setUsername] = useState()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
@@ -12,7 +12,7 @@ const Login = ({setter}) => {
         console.log(username)
         console.log(email)
         console.log(password)
-        await loginUser(username, email, password, setter)
+        await loginUser(username, email, password, setter, cookie)
     }
 
     return (

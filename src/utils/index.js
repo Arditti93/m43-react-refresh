@@ -5,7 +5,7 @@ export const createUser = async (username, email, password) => {
         const response = await fetch("http://localhost:5001/createUser", {
             method: "POST",
             headers: {
-                "Content-Type" : "application/json"
+                "Content-Type" : "application/json",
             },
             body: JSON.stringify({
                 "username" : username,
@@ -23,12 +23,13 @@ export const createUser = async (username, email, password) => {
 
 //Finish readUsers below
 //MAKE SURE YOU REMOVE THE TOKEN CHECK MIDDLEWARE FROM THE READUSERS ENDPONT FOR NOW
-export const readUsers = async () => {
+export const readUsers = async (cookie) => {
     try {
         const response = await fetch("http://localhost:5001/readUsers", {
             method: "GET",
             headers: {
-                "Content-Type" : "application/json"
+                "Content-Type" : "application/json",
+                "Authorization" : `Bearer ${cookie}`
             }
         })
         const data = await response.json()
@@ -40,7 +41,7 @@ export const readUsers = async () => {
     }
 } 
 
-export const loginUser =  async (username, email, password, setter) => {
+export const loginUser =  async (username, email, password, setter, cookie) => {
     try {
         const response = await fetch("http://localhost:5001/login", {
             method: "POST",
@@ -56,6 +57,7 @@ export const loginUser =  async (username, email, password, setter) => {
         const data = await response.json()
         console.log(data)
         setter(data.username)
+        cookie(data.token)
         writeCookie("jwt_token", data.token, 7)
     } catch (error) {
         console.log(error)
@@ -74,6 +76,43 @@ export const authCheck = async (jwtToken) => {
         const data = await response.json()
         console.log(data)
         return data.username
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+export const updateUser = async (username, key, value) => {
+    try {
+        const response = await fetch("http://localhost:5001/updateUser", {
+            method: "PUT",
+            headers: {
+                "Content-Type" : "application/json",
+            },
+            body: JSON.stringify({
+                "username" : username,
+                "key" : key,
+                "value": value
+            })
+        })
+        const data = await response.json()
+        console.log(data)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const deleteUser = async (username) => {
+    try {
+        const response = await fetch("http://localhost:5001/deleteUser", {
+            method: "DELETE",
+            headers: {"Content-Type" : "application/json"},
+            body: JSON.stringify({
+                "username": username
+            })
+        })
+        const data = await response.json()
+        console.log(data)
     } catch (error) {
         console.log(error)
     }

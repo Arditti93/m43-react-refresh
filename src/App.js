@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import CreateUser from './componets/CreateUser'
 import ReadUsers from './componets/ReadUsers'
 import Login from './componets/Login'
+import UpdateUser from './componets/UpdateUser'
+import DeleteUser from './componets/DeleteUser'
 
 import { getCookie } from './common'
 import { authCheck } from './utils'
@@ -16,6 +18,7 @@ const App = () => {
   // const [movies, setMovies] = useState([])
 
   const [user, setUser] = useState()
+  const [cookie, setCookie] = useState()
 
   useEffect(()=>{
     // searchFilms('Batman')
@@ -28,6 +31,7 @@ const App = () => {
   const loginWithToken = async (cookie) => {
     const user = await authCheck(cookie)
     setUser(user)
+    setCookie(cookie)
   }
 
   // const searchFilms = async (title) => {
@@ -76,13 +80,20 @@ const App = () => {
     <div className='app'>
       <CreateUser />
       {/* TODO: call read users componet here */}
-      <ReadUsers />
 
-      <Login setter={setUser} />
+      <Login setter={setUser} cookie={setCookie} />
+
       {user ?
-        <h2> Hello welcome {user} you have logged in</h2>
-        :
-        <h2>Please login</h2>
+        <>
+            <h2> Hello welcome {user} you have logged in</h2>
+            <ReadUsers cookie={cookie} />
+            <UpdateUser user={user} />
+            <DeleteUser user={user} />
+            
+
+        </>
+          :
+          <h2>Please login</h2>
       }
     </div>
   )

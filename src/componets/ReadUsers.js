@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 //TODO import readUsers fetch function here
 import { readUsers } from '../utils'
 
-const ReadUsers = () => {
+const ReadUsers = ({cookie}) => {
     const [usernames, setUsernames] = useState()
 
     useEffect(()=> {
@@ -13,7 +13,7 @@ const ReadUsers = () => {
 
     const loadUsers = async () => {
         // // TODO: Call readUsers fetch function here
-        let users = await readUsers()
+        let users = await readUsers(cookie)
         setUsernames(users)
     }
 
