@@ -12,7 +12,7 @@ import { getCookie } from './common'
 import { authCheck } from './utils'
 
 
-const API_URL = "http://www.omdbapi.com/?i=tt3896198&apikey=7d2e5ef7"
+const API_URL = "https://www.omdbapi.com/?i=tt3896198&apikey=7d2e5ef7"
 
 const App = () => {
   // const [searchTerm, setSearchTerm] = useState("")
