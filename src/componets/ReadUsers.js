@@ -10,7 +10,7 @@ const ReadUsers = ({cookie}) => {
 
     useEffect(()=> {
         loadUsers()
-    }, )
+    },[] )
 
     const loadUsers = async () => {
         // // TODO: Call readUsers fetch function here
