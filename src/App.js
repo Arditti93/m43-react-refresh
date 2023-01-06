@@ -6,22 +6,23 @@ import ReadUsers from './componets/ReadUsers'
 import Login from './componets/Login'
 import UpdateUser from './componets/UpdateUser'
 import DeleteUser from './componets/DeleteUser'
+import MovieCard from './componets/MovieCard'
 
 import { getCookie } from './common'
 import { authCheck } from './utils'
 
 
-// const API_URL = "http://www.omdbapi.com/?i=tt3896198&apikey=7d2e5ef7"
+const API_URL = "http://www.omdbapi.com/?i=tt3896198&apikey=7d2e5ef7"
 
 const App = () => {
   // const [searchTerm, setSearchTerm] = useState("")
-  // const [movies, setMovies] = useState([])
+  const [movies, setMovies] = useState([])
 
   const [user, setUser] = useState()
   const [cookie, setCookie] = useState()
 
   useEffect(()=>{
-    // searchFilms('Batman')
+    searchFilms('Batman')
     let cookie = getCookie('jwt_token')
     if (cookie !== false) {
       loginWithToken(cookie)
@@ -34,30 +35,14 @@ const App = () => {
     setCookie(cookie)
   }
 
-  // const searchFilms = async (title) => {
-  //   const request = await fetch(`${API_URL}&s=${title}`)
-  //   const response = await request.json()
-  //   setMovies(response.Search)
-  //   // console.log(response.Search)
-  // }
+  const searchFilms = async (title) => {
+    const request = await fetch(`${API_URL}&s=${title}`)
+    const response = await request.json()
+    setMovies(response.Search)
+    // console.log(response.Search)
+  }
 
   return (
-    // <div className="app">
-    //   <h1>My Movie App</h1>
-    //   <br></br>
-    //   <br></br>
-
-    //   <div className='searchInput'>
-    //     <input 
-    //       placeholder='Search for a film'
-    //       value={searchTerm}
-    //       onChange={(e) => setSearchTerm(e.target.value)}
-    //     />
-    //     <button 
-    //     onClick={() => searchFilms(searchTerm)}>
-    //     Search for a film
-    //     </button>
-    //   </div>
 
     //   {movies?.length > 0
     //   //if the movies array is greater than zero
@@ -89,7 +74,23 @@ const App = () => {
             <ReadUsers cookie={cookie} />
             <UpdateUser user={user} />
             <DeleteUser user={user} />
-            
+
+            {movies?.length > 0
+            //if the movies array is greater than zero
+              ? (
+                <div className="container">
+                  {/* map over movies array and display each movie in the movies array in our moiveCard componet */}
+                  {movies.map((oneMovie) =>(
+                    <MovieCard movie={oneMovie} />
+                  ))}
+                </div>
+                //else the movies array is less than zero display no movies found
+              ) : (
+                <div className='empty'>
+                  <h2>No movies found</h2>
+                </div>
+              )
+            }      
 
         </>
           :

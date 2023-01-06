@@ -7,9 +7,10 @@ import { readUsers } from '../utils'
 const ReadUsers = ({cookie}) => {
     const [usernames, setUsernames] = useState()
 
+
     useEffect(()=> {
         loadUsers()
-    }, [])
+    }, )
 
     const loadUsers = async () => {
         // // TODO: Call readUsers fetch function here
