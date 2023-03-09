@@ -15,14 +15,11 @@ import { authCheck } from './utils'
 const API_URL = "https://www.omdbapi.com/?i=tt3896198&apikey=7d2e5ef7"
 
 const App = () => {
-  // const [searchTerm, setSearchTerm] = useState("")
-  const [movies, setMovies] = useState([])
 
   const [user, setUser] = useState()
   const [cookie, setCookie] = useState()
 
   useEffect(()=>{
-    searchFilms('Batman')
     let cookie = getCookie('jwt_token')
     if (cookie !== false) {
       loginWithToken(cookie)
@@ -35,36 +32,10 @@ const App = () => {
     setCookie(cookie)
   }
 
-  const searchFilms = async (title) => {
-    const request = await fetch(`${API_URL}&s=${title}`)
-    const response = await request.json()
-    setMovies(response.Search)
-    // console.log(response.Search)
-  }
-
   return (
-
-    //   {movies?.length > 0
-    //   //if the movies array is greater than zero
-    //     ? (
-    //       <div className="container">
-    //         {/* map over movies array and display each movie in the movies array in our moiveCard componet */}
-    //         {movies.map((oneMovie) =>(
-    //           <MovieCard movie={oneMovie} />
-    //         ))}
-    //       </div>
-    //       //else the movies array is less than zero display no movies found
-    //     ) : (
-    //       <div className='empty'>
-    //         <h2>No movies found</h2>
-    //       </div>
-    //     )
-    //   }      
-    // </div>
 
     <div className='app'>
       <CreateUser />
-      {/* TODO: call read users componet here */}
 
       <Login setter={setUser} cookie={setCookie} />
 
@@ -74,24 +45,6 @@ const App = () => {
             <ReadUsers cookie={cookie} />
             <UpdateUser user={user} />
             <DeleteUser user={user} />
-
-            {movies?.length > 0
-            //if the movies array is greater than zero
-              ? (
-                <div className="container">
-                  {/* map over movies array and display each movie in the movies array in our moiveCard componet */}
-                  {movies.map((oneMovie) =>(
-                    <MovieCard movie={oneMovie} />
-                  ))}
-                </div>
-                //else the movies array is less than zero display no movies found
-              ) : (
-                <div className='empty'>
-                  <h2>No movies found</h2>
-                </div>
-              )
-            }      
-
         </>
           :
           <h2>Please login</h2>
